@@ -1,0 +1,23 @@
+<query-editor-row query-ctrl="ctrl" class="generic-datasource-query-row" has-text-edit-mode="true">
+  <div class="gf-form-inline">
+
+    <label class="gf-form-label">CDN Site</label>
+    <div class="gf-form">
+      <metric-segment-model property="ctrl.target.siteName" get-options="ctrl.getOptions('sites')" on-change="ctrl.onChangeInternal()"
+        css-class="tight-form-item-xxlarge"></metric-segment-model>
+    </div>
+
+    <label class="gf-form-label">Site Metric</label>
+    <div class="gf-form">
+      <metric-segment-model property="ctrl.target.metricName" get-options="ctrl.getOptions('metrics')" on-change="ctrl.onChangeInternal()"
+        css-class="tight-form-item-xxlarge"></metric-segment-model>
+    </div>
+
+    <label class="gf-form-label">Time Frame</label>
+    <div class="gf-form">
+      <metric-segment-model property="ctrl.target.timeFrame" get-options="ctrl.getOptions('time_frame')" on-change="ctrl.onChangeInternal()"
+        css-class="tight-form-item-xxlarge"></metric-segment-model>
+    </div>
+    
+  </div>
+</query-editor-row>

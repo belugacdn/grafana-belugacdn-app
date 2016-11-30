@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/module.js"],"names":["AppConfigCtrl"],"mappings":";;;;;;;;AAAQA,mB,qBAAAA,a;;;4BAGNA,a","file":"module.js","sourcesContent":["import {AppConfigCtrl} from './components/config';\n\nexport {\n  AppConfigCtrl as ConfigCtrl\n};\n"]}

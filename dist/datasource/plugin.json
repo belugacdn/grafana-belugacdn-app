@@ -1,0 +1,8 @@
+{
+  "type": "datasource",
+  "name": "BelugaCDN API",
+  "id": "grafana-belugacdn-datasource",
+
+  "metrics": true,
+  "annotations": true
+}
