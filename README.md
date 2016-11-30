@@ -28,10 +28,12 @@ The BelugaCDN Grafana Application plugin allows you to access available CDN site
 ## Installation
 
 #### On Linux systems:
-- Install by doing `git clone https://github.com/belugacdn/grafana-belugacdn-app.git` in to `/var/lib/grafana/plugins`
+- `git clone https://github.com/belugacdn/grafana-belugacdn-app.git` in to `/var/lib/grafana/plugins`
 
 #### On Macs or Windows systems:
-- Install by doing `git clone https://github.com/belugacdn/grafana-belugacdn-app.git` in to `data/plugins`
+- `git clone https://github.com/belugacdn/grafana-belugacdn-app.git` in to `data/plugins`
+
+Restart the grafana-server afterwards for the plugin to show up.
 
 ## Feedback and Questions
 
