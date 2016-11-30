@@ -27,13 +27,6 @@ export class AppConfigCtrl {
         var initUsername = 'your-BelugaCDN@email';
         var initPassword = 'password';
 
-        if (self.appModel.jsonData.username !== '') {
-          initUsername = self.appModel.jsonData.username;
-        }
-        if (self.appModel.jsonData.password !== '') {
-          initPassword = self.appModel.jsonData.password;
-        }
-
         // create datasource
         var belugacdn = {
           name: 'belugacdn',
