@@ -11,7 +11,6 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
 
     this.target.siteName = this.target.siteName || 'select site';
     this.target.metricName = this.target.metricName || 'select metric';
-    this.target.timeFrame = this.target.timeFrame || 'select time';
   }
 
   // Transform options with uiSegmentSrv to use with metric-segment-model

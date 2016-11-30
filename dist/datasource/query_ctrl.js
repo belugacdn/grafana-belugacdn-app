@@ -71,7 +71,6 @@ System.register(['app/plugins/sdk', './css/query-editor.css!'], function (_expor
 
           _this.target.siteName = _this.target.siteName || 'select site';
           _this.target.metricName = _this.target.metricName || 'select metric';
-          _this.target.timeFrame = _this.target.timeFrame || 'select time';
           return _this;
         }
 

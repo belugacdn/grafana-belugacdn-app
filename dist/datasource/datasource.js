@@ -71,7 +71,12 @@ System.register(["lodash", "../crypto-js", "../moment"], function (_export, _con
             }
 
             var target = options.targets[0];
-            var path = '/api/cdn/v2/metrics/' + target.siteName + '/' + target.timeFrame + '/' + target.metricName + '?output=json';
+
+            var rStart = Math.round(Date.parse(options.range.from._d) / 1000).toString();
+            var rEnd = Math.round(Date.parse(options.range.to._d) / 1000).toString();
+            var timeFrame = rStart + '-' + rEnd;
+
+            var path = '/api/cdn/v2/metrics/' + target.siteName + '/' + timeFrame + '/' + target.metricName + '?output=json';
 
             return this.backendSrv.datasourceRequest({
               url: this.url + path,
@@ -171,11 +176,9 @@ System.register(["lodash", "../crypto-js", "../moment"], function (_export, _con
               path = "/api/cdn/v2/" + dimension;
               this.currentDimension = dimension;
             } else if (dimension === "metrics") {
-              path = "/api/cdn/v2/" + dimension + "/" + options.siteName;
+              path = "/api/cdn/v2/" + dimension;
+              path = path + "/" + this.templateSrv.replace(options.siteName);
               this.currentDimension = "views";
-            } else if (dimension === "time_frame") {
-              path = "/api/cdn/v2/" + "metrics" + "/" + options.siteName;
-              this.currentDimension = dimension;
             } else {
               path = "";
             }
@@ -197,9 +200,6 @@ System.register(["lodash", "../crypto-js", "../moment"], function (_export, _con
               resultKeys.push('codes');
               resultKeys.push('fields');
             }
-
-            // mock the `time_frame` response
-            result.data["time_frame"] = [{ "name": "hour" }, { "name": "day" }, { "name": "week" }, { "name": "month" }, { "name": "year" }];
 
             var response = [];
             for (var i = 0; i < resultKeys.length; i++) {
@@ -225,8 +225,7 @@ System.register(["lodash", "../crypto-js", "../moment"], function (_export, _con
                 hide: target.hide,
                 type: target.type || 'timeserie',
                 siteName: _this3.templateSrv.replace(target.siteName),
-                metricName: _this3.templateSrv.replace(target.metricName),
-                timeFrame: _this3.templateSrv.replace(target.timeFrame)
+                metricName: _this3.templateSrv.replace(target.metricName)
               };
             });
 

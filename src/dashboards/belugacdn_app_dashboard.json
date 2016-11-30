@@ -79,7 +79,6 @@
               "refId": "A",
               "siteName": "$cdnSite",
               "target": "select site",
-              "timeFrame": "$timeFrame",
               "type": "timeserie"
             }
           ],
@@ -159,7 +158,6 @@
               "refId": "A",
               "siteName": "$cdnSite",
               "target": "select site",
-              "timeFrame": "$timeFrame",
               "type": "timeserie"
             }
           ],
@@ -239,7 +237,6 @@
               "refId": "A",
               "siteName": "$cdnSite",
               "target": "select site",
-              "timeFrame": "$timeFrame",
               "type": "timeserie"
             }
           ],
@@ -309,7 +306,6 @@
               "refId": "A",
               "siteName": "$cdnSite",
               "target": "Select Site",
-              "timeFrame": "$timeFrame",
               "type": "timeserie"
             }
           ],
@@ -391,7 +387,6 @@
               "refId": "A",
               "siteName": "$cdnSite",
               "target": "Select Site",
-              "timeFrame": "$timeFrame",
               "type": "timeserie"
             }
           ],
@@ -479,8 +474,7 @@
             {
               "metricName": "traffic/regions",
               "refId": "A",
-              "siteName": "$cdnSite",
-              "timeFrame": "$timeFrame"
+              "siteName": "$cdnSite"
             }
           ],
           "thresholds": [],
@@ -559,8 +553,7 @@
             {
               "metricName": "status_nxx",
               "refId": "A",
-              "siteName": "$cdnSite",
-              "timeFrame": "$timeFrame"
+              "siteName": "$cdnSite"
             }
           ],
           "thresholds": [],
@@ -635,49 +628,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": true,
-          "text": "month",
-          "value": "month"
-        },
-        "datasource": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": "Report Time Frame",
-        "multi": false,
-        "name": "timeFrame",
-        "options": [
-          {
-            "selected": false,
-            "text": "hour",
-            "value": "hour"
-          },
-          {
-            "selected": false,
-            "text": "day",
-            "value": "day"
-          },
-          {
-            "selected": false,
-            "text": "week",
-            "value": "week"
-          },
-          {
-            "selected": true,
-            "text": "month",
-            "value": "month"
-          },
-          {
-            "selected": false,
-            "text": "year",
-            "value": "year"
-          }
-        ],
-        "query": "hour,day,week,month,year",
-        "refresh": 0,
-        "type": "custom"
-      },
-      {
         "datasource": "belugacdn",
         "hide": 0,
         "includeAll": false,
@@ -688,7 +638,8 @@
         "query": "sites",
         "refresh": 1,
         "regex": "",
-        "type": "query"
+        "type": "query",
+        "current": {}
       }
     ]
   },
@@ -696,7 +647,7 @@
     "list": []
   },
   "schemaVersion": 12,
-  "version": 4,
+  "version": 0,
   "links": [],
   "gnetId": null
 }
