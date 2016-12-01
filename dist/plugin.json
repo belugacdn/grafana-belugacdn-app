@@ -20,12 +20,12 @@
       "large": "img/large_logo.png"
     },
     "links": [
+      {"name": "Beluga CDN", "url": "https://www.belugacdn.com"},
       {"name": "GitHub", "url": "https://github.com/belugacdn/grafana-belugacdn-app"},
-      {"name": "License & Terms", "url": "https://github.com/belugacdn/grafana-belugacdn-app/blob/master/LICENSE"},
-      {"name": "BelugaCDN UI", "url": "https://my.belugacdn.com"}
+      {"name": "License & Terms", "url": "https://github.com/belugacdn/grafana-belugacdn-app/blob/master/LICENSE"}
     ],
-    "version": "1.0.0",
-    "updated": "2016-11-30"
+    "version": "1.1.0",
+    "updated": "2016-12-01"
   },
 
   "includes": [

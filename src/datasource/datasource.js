@@ -20,6 +20,15 @@ export class GenericDatasource {
   }
 
   query(options) {
+    var queries = [];
+    _.each(options.targets, _.bind(function (target) {
+      if (target.hide) {
+        return;
+      }
+      var query = this.buildQueryParameters(options);
+      queries.push(query);
+    }, this));
+
     var query = this.buildQueryParameters(options);
 
     query.targets = query.targets.filter(t => !t.hide);
@@ -27,39 +36,57 @@ export class GenericDatasource {
       return this.q.when({data: []});
     }
 
-    var target = options.targets[0];
+    var allQueryPromise = _.map(queries, _.bind(function (query, index) {
+      return this.makeQueryCall(query, options.targets[index], options);
+    }, this));
+    return this.q.all(allQueryPromise)
+      .then(function (allResponse) {
+        var result = [];
+        _.each(allResponse, function (response) {
+          _.each(response.data, function (d) {
+            result.push(d);
+          });
+        });
+        return { data: result };
+      });
+  }
 
+  makeQueryCall(query, target, options) {
     var rStart = Math.round(Date.parse(options.range.from._d)/1000).toString();
     var rEnd = Math.round(Date.parse(options.range.to._d)/1000).toString();
     var timeFrame = rStart + '-' + rEnd;
-
     var path = '/api/cdn/v2/metrics/' + target.siteName + '/' + timeFrame + '/' + target.metricName + '?output=json';
+    var url = this.url + path;
 
     return this.backendSrv.datasourceRequest({
-      url: this.url + path,
+      url: url,
       method: 'GET'
-    })
-    .then(response => {
-      response.data = this.formatRawBeluga(response);
-      return response;
+    }).then(response => {
+      if (!response.error) {
+        var result = this.formatRawBeluga(response, target);
+        return { data: result };
+      }
     });
   }
 
-  formatRawBeluga(data) {
-    var output = [];
-    if (data.data.series) {
-      data = data.data.series;
-    }
-    _.map(data, (item, index) => {
-      var datapoints = _.map(data[index].data, (d) => {
-        return [d[1], d[0]];
+  formatRawBeluga(data, target) {
+    if (!data.data.error){
+      var output = [];
+      if (data.data.series) {
+        data = data.data.series;
+      }
+      _.map(data, (item, index) => {
+        var datapoints = _.map(data[index].data, (d) => {
+          return [d[1], d[0]];
+        });
+        var label = target.siteName + " - " + data[index].name;
+        output[index] = {
+          "target": label,
+          "datapoints": datapoints
+        };
       });
-      output[index] = {
-        "target": data[index].name,
-        "datapoints": datapoints
-      };
-    });
-    return output;
+      return output;
+    }
   }
 
   testDatasource() {
