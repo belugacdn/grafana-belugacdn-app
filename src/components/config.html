@@ -2,5 +2,16 @@
 
 <div class="gf-form-group">
   <p>This app integrates with the BelugaCDN API. Go to <a href="https://www.belugacdn.com/?utm_source=grafana&utm_medium=plugin" target="_blank">www.belugacdn.com</a> to create an account.</p>
-  <p>Configure your account credentials by updating the <strong><a href="/datasources">"BelugaCDN API" Datasource</a></strong> after enabling this plugin.</p>
+  <div class="gf-form-inline">
+    <p>Enter your User Interface login &amp; password below to configure the plugin:</p>
+    <div class="gf-form">
+      <span class="gf-form-label">Account Email Address</span>
+      <input type="text" class="gf-form-input" ng-model="ctrl.appModel.jsonData.username" >
+    </div>
+    <div class="gf-form">
+      <span class="gf-form-label">Password</span>
+      <input type="password" class="gf-form-input" ng-model="ctrl.appModel.jsonData.password" >
+    </div>
+    <p>You can also change the settings at anytime by updating the <a href="/datasources">"BelugaCDN API" Datasource</a>.</p>
+  </div>
 </div>

@@ -13,31 +13,46 @@ export class AppConfigCtrl {
   initDatasource() {
     var self = this;
 
-    //check for existing datasource.
+    // create or update existing datasource
     return self.backendSrv.get('/api/datasources').then(function(results) {
+
+      //check for existing datasource.
+      var dsID = 0;
       var foundDS = false;
       _.forEach(results, function(ds) {
         if (foundDS) { return; }
         if (ds.name === "belugacdn") {
           foundDS = true;
+          dsID = ds.id;
         }
       });
+
+      var initUsername = 'your-BelugaCDN@email';
+      var initPassword = 'password';
+
+      if (self.appModel.jsonData.username !== '') {
+        initUsername = self.appModel.jsonData.username;
+      }
+      if (self.appModel.jsonData.password !== '') {
+        initPassword = self.appModel.jsonData.password;
+      }
+
+      // data source update query
+      var belugacdn = {
+        name: 'belugacdn',
+        type: 'grafana-belugacdn-datasource',
+        access: 'proxy',
+        url: 'https://api.belugacdn.com',
+        basicAuth: true,
+        basicAuthUser: initUsername,
+        basicAuthPassword: initPassword
+      };
+
       var promises = [];
       if (!foundDS) {
-        var initUsername = 'your-BelugaCDN@email';
-        var initPassword = 'password';
-
-        // create datasource
-        var belugacdn = {
-          name: 'belugacdn',
-          type: 'grafana-belugacdn-datasource',
-          access: 'proxy',
-          url: 'https://api.belugacdn.com',
-          basicAuth: true,
-          basicAuthUser: initUsername,
-          basicAuthPassword: initPassword
-        };
         promises.push(self.backendSrv.post('/api/datasources', belugacdn));
+      } else {
+        promises.push(self.backendSrv.put('/api/datasources/' + dsID, belugacdn));
       }
       return Promise.all(promises);
     });
