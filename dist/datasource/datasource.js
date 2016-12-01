@@ -59,7 +59,14 @@ System.register(["lodash", "../crypto-js", "../moment"], function (_export, _con
         _createClass(GenericDatasource, [{
           key: "query",
           value: function query(options) {
-            var _this = this;
+            var queries = [];
+            _.each(options.targets, _.bind(function (target) {
+              if (target.hide) {
+                return;
+              }
+              var query = this.buildQueryParameters(options);
+              queries.push(query);
+            }, this));
 
             var query = this.buildQueryParameters(options);
 
@@ -70,39 +77,60 @@ System.register(["lodash", "../crypto-js", "../moment"], function (_export, _con
               return this.q.when({ data: [] });
             }
 
-            var target = options.targets[0];
+            var allQueryPromise = _.map(queries, _.bind(function (query, index) {
+              return this.makeQueryCall(query, options.targets[index], options);
+            }, this));
+            return this.q.all(allQueryPromise).then(function (allResponse) {
+              var result = [];
+              _.each(allResponse, function (response) {
+                _.each(response.data, function (d) {
+                  result.push(d);
+                });
+              });
+              return { data: result };
+            });
+          }
+        }, {
+          key: "makeQueryCall",
+          value: function makeQueryCall(query, target, options) {
+            var _this = this;
 
             var rStart = Math.round(Date.parse(options.range.from._d) / 1000).toString();
             var rEnd = Math.round(Date.parse(options.range.to._d) / 1000).toString();
             var timeFrame = rStart + '-' + rEnd;
-
             var path = '/api/cdn/v2/metrics/' + target.siteName + '/' + timeFrame + '/' + target.metricName + '?output=json';
+            var url = this.url + path;
 
             return this.backendSrv.datasourceRequest({
-              url: this.url + path,
+              url: url,
               method: 'GET'
             }).then(function (response) {
-              response.data = _this.formatRawBeluga(response);
-              return response;
+              if (!response.error) {
+                var result = _this.formatRawBeluga(response, target);
+                return { data: result };
+              }
             });
           }
         }, {
           key: "formatRawBeluga",
-          value: function formatRawBeluga(data) {
-            var output = [];
-            if (data.data.series) {
-              data = data.data.series;
-            }
-            _.map(data, function (item, index) {
-              var datapoints = _.map(data[index].data, function (d) {
-                return [d[1], d[0]];
+          value: function formatRawBeluga(data, target) {
+            if (!data.data.error) {
+              var output = [];
+              if (data.data.series) {
+                data = data.data.series;
+              }
+              _.map(data, function (item, index) {
+                var datapoints = _.map(data[index].data, function (d) {
+                  return [d[1], d[0]];
+                });
+                var label = target.siteName + " - " + data[index].name;
+                output[index] = {
+                  "target": label,
+                  "datapoints": datapoints
+                };
               });
-              output[index] = {
-                "target": data[index].name,
-                "datapoints": datapoints
-              };
-            });
-            return output;
+              return output;
+            }
           }
         }, {
           key: "testDatasource",

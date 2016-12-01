@@ -79,13 +79,12 @@ export class GenericDatasource {
         var datapoints = _.map(data[index].data, (d) => {
           return [d[1], d[0]];
         });
-        var label = target.siteName + " - " + data[index].name; 
+        var label = target.siteName + " - " + data[index].name;
         output[index] = {
           "target": label,
           "datapoints": datapoints
         };
       });
-      
       return output;
     }
   }
