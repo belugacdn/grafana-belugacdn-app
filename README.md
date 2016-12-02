@@ -22,6 +22,9 @@ The BelugaCDN Grafana Application plugin allows you to access available CDN site
 
 ## Change Log
 
+##### v1.1.0
+- support multiple Datasources per panel for more advanced graphing
+
 ##### v1.0.0
 - initial version with API based Grafana Datasource & example Dashboard
 
