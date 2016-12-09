@@ -1,7 +1,7 @@
 {
   "type": "app",
   "name": "BelugaCDN",
-  "id": "grafana-belugacdn-app",
+  "id": "belugacdn-app",
 
   "css": {
     "dark":  "css/dark.css",
