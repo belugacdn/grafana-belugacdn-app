@@ -24,7 +24,7 @@
       {"name": "GitHub", "url": "https://github.com/belugacdn/grafana-belugacdn-app"},
       {"name": "License & Terms", "url": "https://github.com/belugacdn/grafana-belugacdn-app/blob/master/LICENSE"}
     ],
-    "version": "1.1.1",
+    "version": "1.2.0",
     "updated": "2016-12-09"
   },
 
