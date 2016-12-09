@@ -25,7 +25,7 @@
       {"name": "License & Terms", "url": "https://github.com/belugacdn/grafana-belugacdn-app/blob/master/LICENSE"}
     ],
     "version": "1.1.1",
-    "updated": "2016-12-01"
+    "updated": "2016-12-09"
   },
 
   "includes": [
